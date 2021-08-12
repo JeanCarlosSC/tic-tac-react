@@ -41,6 +41,9 @@ class Board extends React.Component {
 
   handleClick(i) {
     const matriz = this.state.matriz.slice();
+    if(calculateWinner(matriz) || matriz[i]) {
+      return;
+    }
     matriz[i] = this.state.xIsNext ? 'X' : 'O';
     this.setState({
       matriz: matriz,
@@ -58,7 +61,14 @@ class Board extends React.Component {
   }
 
   render () {
-    const status = 'Next player: ' + (this.state.xIsNext ? 'X': 'O');
+    const winner = calculateWinner(this.state.matriz);
+    let status;
+
+    if(winner) {
+      status =  'Winner '+ winner;
+    } else {
+      status = 'Next player: ' + (this.state.xIsNext ? 'X': 'O');
+    }
 
     return (
       <div>
