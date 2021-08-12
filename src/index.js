@@ -14,14 +14,18 @@ class Board extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      matriz: Array(9).fill(null), 
+      matriz: Array(9).fill(null),
+      xIsNext: true, 
     };
   }
 
   handleClick(i) {
     const matriz = this.state.matriz.slice();
-    matriz[i] = 'X'
-    this.setState({matriz: matriz})
+    matriz[i] = this.state.xIsNext ? 'X' : 'O';
+    this.setState({
+      matriz: matriz,
+      xIsNext: !this.state.xIsNext,
+    });
   }
 
   renderSquare (i) {
